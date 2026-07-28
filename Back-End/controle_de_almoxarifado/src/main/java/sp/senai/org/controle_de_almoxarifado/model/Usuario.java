@@ -1,13 +1,27 @@
 package sp.senai.org.controle_de_almoxarifado.model;
 
+import jakarta.persistence.*;
 import sp.senai.org.controle_de_almoxarifado.model.enums.NivelAcesso;
 
+import java.util.List;
+
+@Entity
 public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
     private String email;
+
     private String senha;
+
+    @Enumerated(EnumType.STRING)
     private NivelAcesso nivelAcesso;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Movimentacao> movimentacoes;
 
     public Long getId() {
         return id;
@@ -47,5 +61,13 @@ public class Usuario {
 
     public void setNivelAcesso(NivelAcesso nivelAcesso) {
         this.nivelAcesso = nivelAcesso;
+    }
+
+    public List<Movimentacao> getMovimentacoes() {
+        return movimentacoes;
+    }
+
+    public void setMovimentacoes(List<Movimentacao> movimentacoes) {
+        this.movimentacoes = movimentacoes;
     }
 }

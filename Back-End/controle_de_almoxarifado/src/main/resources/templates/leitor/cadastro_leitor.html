@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Cadastro de Leitor RFID</title>
+
+    <style>
+
+        body{
+
+            font-family:Arial;
+            background:#f4f4f4;
+            padding:40px;
+
+        }
+
+        .container{
+
+            width:600px;
+            margin:auto;
+            background:white;
+            padding:25px;
+            border-radius:10px;
+
+        }
+
+        input,select{
+
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+
+        }
+
+        button{
+
+            width:100%;
+            padding:12px;
+            margin-top:20px;
+            background:#3949AB;
+            color:white;
+            border:none;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Cadastro do Leitor RFID</h2>
+
+    <form
+            th:action="@{/leitor/salvar}"
+            th:object="${leitor}"
+            method="post">
+
+        <label>Nome do Leitor</label>
+
+        <input
+                type="text"
+                th:field="*{nome}">
+
+        <label>Localização</label>
+
+        <input
+                type="text"
+                th:field="*{localizacao}">
+
+        <label>Status</label>
+
+        <select
+                th:field="*{online}">
+
+            <option value="true">
+
+                Online
+
+            </option>
+
+            <option value="false">
+
+                Offline
+
+            </option>
+
+        </select>
+
+        <button>
+
+            Salvar
+
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

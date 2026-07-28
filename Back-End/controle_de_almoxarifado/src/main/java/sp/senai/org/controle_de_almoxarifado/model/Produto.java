@@ -1,13 +1,34 @@
 package sp.senai.org.controle_de_almoxarifado.model;
 
+import jakarta.persistence.*;
 import sp.senai.org.controle_de_almoxarifado.model.enums.StatusProduto;
 
+import java.util.List;
+
+@Entity
 public class Produto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
-    private String codigoBarras;
+
+    private String descricao;
+
     private String categoria;
+
+    @Enumerated(EnumType.STRING)
     private StatusProduto status;
+
+    @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
+    private Estoque estoque;
+
+    @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL)
+    private TagRFID tagRFID;
+
+    @OneToMany(mappedBy = "produto")
+    private List<Movimentacao> movimentacaos;
 
     public Long getId() {
         return id;
@@ -25,12 +46,12 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getCodigoBarras() {
-        return codigoBarras;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setCodigoBarras(String codigoBarras) {
-        this.codigoBarras = codigoBarras;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getCategoria() {
@@ -47,5 +68,29 @@ public class Produto {
 
     public void setStatus(StatusProduto status) {
         this.status = status;
+    }
+
+    public Estoque getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(Estoque estoque) {
+        this.estoque = estoque;
+    }
+
+    public TagRFID getTagRFID() {
+        return tagRFID;
+    }
+
+    public void setTagRFID(TagRFID tagRFID) {
+        this.tagRFID = tagRFID;
+    }
+
+    public List<Movimentacao> getMovimentacaos() {
+        return movimentacaos;
+    }
+
+    public void setMovimentacaos(List<Movimentacao> movimentacaos) {
+        this.movimentacaos = movimentacaos;
     }
 }

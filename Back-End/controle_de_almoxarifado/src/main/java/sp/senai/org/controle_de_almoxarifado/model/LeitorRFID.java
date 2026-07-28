@@ -1,11 +1,19 @@
 package sp.senai.org.controle_de_almoxarifado.model;
 
+import jakarta.persistence.*;
+
+@Entity
 public class LeitorRFID {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
     private String localizacao;
-    private String enderecoIP;
-    private boolean online;
+
+    private Boolean online;
 
     public Long getId() {
         return id;
@@ -31,19 +39,11 @@ public class LeitorRFID {
         this.localizacao = localizacao;
     }
 
-    public String getEnderecoIP() {
-        return enderecoIP;
-    }
-
-    public void setEnderecoIP(String enderecoIP) {
-        this.enderecoIP = enderecoIP;
-    }
-
-    public boolean isOnline() {
+    public Boolean getOnline() {
         return online;
     }
 
-    public void setOnline(boolean online) {
+    public void setOnline(Boolean online) {
         this.online = online;
     }
 }
