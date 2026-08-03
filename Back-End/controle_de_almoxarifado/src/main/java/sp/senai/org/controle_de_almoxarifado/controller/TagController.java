@@ -1,17 +1,38 @@
 package sp.senai.org.controle_de_almoxarifado.controller;
 
-import ch.qos.logback.core.model.Model;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import sp.senai.org.controle_de_almoxarifado.model.TagRFID;
 import sp.senai.org.controle_de_almoxarifado.repository.ProdutoRepository;
+import sp.senai.org.controle_de_almoxarifado.repository.TagRepository;
 
+@Controller
+@RequestMapping("/tag")
 public class TagController {
-    @GetMapping("/tag/cadastro")
+
+    private final ProdutoRepository produtoRepository;
+    private final TagRepository tagRepository;
+
+    public TagController(ProdutoRepository produtoRepository, TagRepository tagRepository) {
+        this.produtoRepository = produtoRepository;
+        this.tagRepository = tagRepository;
+    }
+
+    @GetMapping("/form-cadastro")
     public String cadastro(Model model){
 
         model.addAttribute("tagRFID", new TagRFID());
-        model.addAttribute("produtos", ProdutoRepository.findAll());
+        model.addAttribute("produtos", produtoRepository.findAll());
 
-        return "tag/cadastro";
+        return "tag/cadastro_tag";
+    }
+
+    @PostMapping("/salvar")
+    public String salvar(TagRFID tagRFID) {
+        tagRepository.save(tagRFID);
+        return "redirect:/";
     }
 }
